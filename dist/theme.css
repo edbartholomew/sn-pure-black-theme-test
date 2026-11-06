@@ -103,3 +103,12 @@
 		--navigation-item-text-color: white;
 	}
 }
+
+/* The app computes these two from the background colour in JavaScript at theme-switch time
+   and writes them as inline styles on <html>. That runs before this stylesheet has loaded,
+   so popovers/dialogs can keep the previous theme's colours. !important beats inline styles,
+   so pin the dark values here. Same values the app would compute for a #000000 background. */
+:root {
+	--popover-background-color: rgba(0, 0, 0, 0.65) !important;
+	--popover-backdrop-filter: blur(12px) saturate(190%) contrast(70%) brightness(80%) !important;
+}
