@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.2](https://github.com/edbartholomew/sn-pure-black-theme-test/compare/1.1.1...1.1.2) (2026-11-06)
+
+
+### Bug Fixes
+
+* pin translucent popover colours so switching from a light theme does not leave light overlays ([572fcf3](https://github.com/edbartholomew/sn-pure-black-theme-test/commit/572fcf32a999c4c6a6a684bd256e865a731e5d51))
+
 ## [1.1.1](https://github.com/edbartholomew/sn-pure-black-theme-test/compare/1.1.0...1.1.1) (2026-11-06)
 
 
