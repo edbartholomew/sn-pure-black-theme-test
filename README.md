@@ -45,6 +45,8 @@ One-time setup:
   3. If the box is greyed out, enable the same setting at the organisation level first.
   4. Re-run the failed workflow from the Actions tab; no new commit is needed.
 - `.release-please-manifest.json` holds the current version; keep it in step with `package.json`.
+- `release-please-config.json` pins `component` to a fixed name. release-please matches a merged release PR
+  by that name, and the workflow rewrites the package name inside the PR, so it must not come from `package.json`.
 
 ## Notes
 
