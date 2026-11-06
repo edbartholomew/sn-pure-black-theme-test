@@ -1,0 +1,48 @@
+:root {
+	/* Main background: editor and note list */
+	--background-color: black;
+
+	/* Shared surface color for raised panels */
+	--surface-color: hsl(240, 2.5%, 7.5%);
+
+	/* Accent: selected note bar, links, toggles, buttons. */
+	--highlight-color: hsl(210, 98%, 50%);
+
+	/* Sidebar */
+	--sn-stylekit-passive-color-4: var(--surface-color);
+
+	/* Selected note background and footer bar */
+	--sn-stylekit-contrast-background-color: var(--surface-color);
+
+	/* Scrollbar */
+	--sn-stylekit-scrollbar-thumb-color: hsl(215, 4%, 25%);
+}
+
+/* Note list: the preview text under each note title. */
+.content-list-item > div > div:nth-child(2) {
+	color: var(--sn-stylekit-neutral-color);
+}
+
+/* Sidebar (views/tags list) */
+#navigation .tag {
+	/* Row background of the selected item (accent at 15%). */
+	&.selected {
+		--navigation-item-selected-background-color: color-mix(in srgb, var(--highlight-color) 15%, transparent);
+	}
+
+	/* Row background when hovering an unselected item. */
+	&:hover:not(.selected) {
+		--navigation-item-selected-background-color: hsl(240, 1.5%, 12.5%);
+	}
+
+	/* Default item text is grey. */
+	> .tag-info > .title {
+		--navigation-item-text-color: var(--sn-stylekit-neutral-color);
+	}
+
+	/* Item text goes white when selected or hovered. */
+	&.selected > .tag-info > .title,
+	&:hover > .tag-info > .title {
+		--navigation-item-text-color: white;
+	}
+}

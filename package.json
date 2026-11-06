@@ -1,0 +1,9 @@
+{
+	"name": "sn-pure-black-theme",
+	"version": "1.0.0",
+	"private": true,
+	"scripts": {
+		"build": "./build.sh"
+	},
+	"sn": { "main": "dist/theme.css" }
+}

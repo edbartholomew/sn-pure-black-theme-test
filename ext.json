@@ -1,0 +1,16 @@
+{
+	"identifier": "io.github.username.sn-pure-black-theme",
+	"name": "Pure Black",
+	"content_type": "SN|Theme",
+	"area": "themes",
+	"version": "1.0.0",
+	"description": "Pure black theme for Standard Notes.",
+	"url": "https://cdn.jsdelivr.net/gh/username/sn-pure-black-theme@1.0.0/dist/theme.css",
+	"download_url": "https://github.com/username/sn-pure-black-theme/archive/1.0.0.zip",
+	"latest_url": "https://cdn.jsdelivr.net/gh/username/sn-pure-black-theme@main/ext.json",
+	"marketing_url": "https://github.com/username/sn-pure-black-theme",
+	"dock_icon": {
+		"type": "circle",
+		"background_color": "#0680fc"
+	}
+}
