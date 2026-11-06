@@ -38,7 +38,12 @@ One-time setup:
 
 - Push this folder to a public GitHub repo. The workflow fills in the owner/repo in `ext.json`'s
   identifier and URLs on the first release PR, so the `username` placeholder can stay.
-- Repo Settings → Actions → General → enable "Allow GitHub Actions to create and approve pull requests".
+- Allow the workflow to open pull requests, or release-please fails with
+  `GitHub Actions is not permitted to create or approve pull requests`:
+  1. Repo → Settings → Actions → General.
+  2. Under "Workflow permissions", tick "Allow GitHub Actions to create and approve pull requests" and save.
+  3. If the box is greyed out, enable the same setting at the organisation level first.
+  4. Re-run the failed workflow from the Actions tab; no new commit is needed.
 - `.release-please-manifest.json` holds the current version; keep it in step with `package.json`.
 
 ## Notes
