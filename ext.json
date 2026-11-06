@@ -3,10 +3,10 @@
 	"name": "Pure Black",
 	"content_type": "SN|Theme",
 	"area": "themes",
-	"version": "1.1.1",
+	"version": "1.1.2",
 	"description": "Pure black theme for Standard Notes.",
-	"url": "https://cdn.jsdelivr.net/gh/edbartholomew/sn-pure-black-theme-test@1.1.1/dist/theme.css",
-	"download_url": "https://github.com/edbartholomew/sn-pure-black-theme-test/archive/1.1.1.zip",
+	"url": "https://cdn.jsdelivr.net/gh/edbartholomew/sn-pure-black-theme-test@1.1.2/dist/theme.css",
+	"download_url": "https://github.com/edbartholomew/sn-pure-black-theme-test/archive/1.1.2.zip",
 	"latest_url": "https://cdn.jsdelivr.net/gh/edbartholomew/sn-pure-black-theme-test@main/ext.json",
 	"marketing_url": "https://github.com/edbartholomew/sn-pure-black-theme-test",
 	"dock_icon": {
