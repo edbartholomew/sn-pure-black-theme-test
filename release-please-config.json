@@ -4,7 +4,8 @@
 	"include-component-in-tag": false,
 	"packages": {
 		".": {
-			"release-type": "node"
+			"release-type": "node",
+			"component": "sn-pure-black-theme"
 		}
 	}
 }
