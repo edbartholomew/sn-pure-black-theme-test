@@ -115,7 +115,7 @@
 
 /* Mobile menu sheets: grey cards on a black sheet */
 .z-modal .bg-passive-5 {
-	--sn-stylekit-passive-color-5: #18bacf;
+	--sn-stylekit-passive-color-5: #cf6418;
 }
 .z-modal .bg-passive-5 .bg-default {
 	--sn-stylekit-background-color: hsl(240, 2.5%, 7.5%);
