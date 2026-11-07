@@ -12,14 +12,22 @@ It's generated, not committed: run the script to test locally; the release job b
 
 ## Test locally
 
-1. From this folder:
+`ext.dev.json` is a second manifest for a separate "Pure Black (dev)" theme that loads its CSS from
+`http://localhost:8000/dist/theme.css`. It has no `download_url`, so the desktop app reads from that URL
+instead of installing a release zip. It sits next to the real theme in the Appearance menu, so switching
+between them is a click.
+
+1. From this folder, start the dev server (it builds once, then rebuilds whenever `src/theme.css` is saved):
    ```
-   npx http-server . -p 8000 --cors -c-1
+   npm run dev
    ```
-2. Standard Notes desktop → Preferences → General → Advanced → Install custom plugin.
-3. Paste `http://localhost:8000/ext.json`.
-4. Activate "My Theme" from the Appearance menu.
-5. After editing `src/theme.css`, run `npm run build` (or `./build.sh`), then toggle the theme off and on to reload it.
+2. Once only: Standard Notes desktop → Preferences → General → Advanced → Install custom plugin,
+   and paste `http://localhost:8000/ext.dev.json`.
+3. Activate "Pure Black (dev)" from the Appearance menu.
+4. After saving `src/theme.css`, toggle the theme off and on to reload it.
+
+`build.sh` fetches the upstream Focus CSS into `dist/upstream.css` once and reuses it. Delete that file to
+pick up upstream changes. The release job always starts from a clean checkout, so it fetches fresh.
 
 Fast iteration: View → Toggle Developer Tools, select `:root` in Elements, and edit
 `--sn-stylekit-*` values live. Copy the ones you like back into `src/theme.css`.

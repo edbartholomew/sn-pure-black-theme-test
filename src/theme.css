@@ -16,6 +16,9 @@
 
 	/* Scrollbar */
 	--sn-stylekit-scrollbar-thumb-color: hsl(215, 4%, 25%);
+
+	/* Preferences canvas behind the cards */
+	--preferences-background-color: var(--background-color);
 }
 
 /* Note list: the preview text under each note title. */
@@ -47,43 +50,36 @@
 	}
 }
 
-/* The app computes these two from the background colour in JavaScript at theme-switch time
-   and writes them as inline styles on <html>. That runs before this stylesheet has loaded,
-   so popovers/dialogs can keep the previous theme's colours. !important beats inline styles,
-   so pin the dark values here. Same values the app would compute for a #000000 background. */
-/* :root {
-	--popover-background-color: rgba(0, 0, 0, 0.65) !important;
-	--popover-backdrop-filter: blur(12px) saturate(190%) contrast(70%) brightness(80%) !important;
-} */
+/* Mobile sheets */
+[data-mobile-popover] {
+	--sn-stylekit-passive-color-5: hsl(240, 2.5%, 10%);
 
-/* Mobile menu sheets: grey cards on a black sheet */
-/* .z-modal .bg-passive-5 {
-	--sn-stylekit-passive-color-5: #000000;
-}
-.z-modal .bg-passive-5 .bg-default {
-	--sn-stylekit-background-color: hsl(240, 2.5%, 7.5%);
-} */
+	/* Handle strip and title bar */
+	> .bg-default {
+		--sn-stylekit-background-color: hsl(240, 2.5%, 10%);
+	}
 
-/* Mobile sheets: handle strip + title bar (direct children of the sheet) */
-[data-mobile-popover] > .bg-default {
-	--sn-stylekit-background-color: var(--sn-stylekit-passive-color-4); /* header colour */
-}
+	/* Divider under the title bar */
+	> .border-border {
+		--sn-stylekit-border-color: hsl(240, 2.5%, 18%);
+	}
 
-/* Divider under the title bar */
-[data-mobile-popover] > .border-border {
-	--sn-stylekit-border-color: hsl(240, 2.5%, 18%);
-}
-
-/* The option cards, inside the scroll body — keep your earlier colour */
-[data-mobile-popover] > div > .bg-default {
-	--sn-stylekit-background-color: hsl(240, 2.5%, 7.5%);
-}
-
-:root {
-	--preferences-background-color: #000000;
+	/* Option cards inside the scroll body */
+	> :nth-child(3) .bg-default {
+		--sn-stylekit-background-color: hsl(240, 2.5%, 12.5%);
+	}
 }
 
 /* Everything that uses bg-default inside the preferences canvas: the cards */
 .bg-\[--preferences-background-color\] .bg-default {
 	--sn-stylekit-background-color: var(--surface-color);
+}
+
+/* Buttons (Change email, Change password, dialogs) */
+.bg-normal-button {
+	/* Lighten on hover and focus instead of darkening */
+	&:hover,
+	&:focus {
+		--sn-stylekit-contrast-background-color: hsl(240, 2.5%, 18%);
+	}
 }

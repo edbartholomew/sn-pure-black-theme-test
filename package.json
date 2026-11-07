@@ -3,7 +3,8 @@
 	"version": "1.1.15",
 	"private": true,
 	"scripts": {
-		"build": "./build.sh"
+		"build": "./build.sh",
+		"dev": "./dev.sh"
 	},
 	"sn": {
 		"main": "dist/theme.css"
