@@ -78,3 +78,12 @@
 [data-mobile-popover] > div > .bg-default {
 	--sn-stylekit-background-color: hsl(240, 2.5%, 7.5%);
 }
+
+:root {
+	--preferences-background-color: #000000;
+}
+
+/* Everything that uses bg-default inside the preferences canvas: the cards */
+.bg-\[--preferences-background-color\] .bg-default {
+	--sn-stylekit-background-color: var(--surface-color);
+}
