@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/edbartholomew/sn-pure-black-theme-test/compare/1.1.2...1.1.3) (2026-11-07)
+
+
+### Bug Fixes
+
+* change mobile menu colors ([f734113](https://github.com/edbartholomew/sn-pure-black-theme-test/commit/f734113326b36814555b850a94599ecc8c218562))
+
 ## [1.1.2](https://github.com/edbartholomew/sn-pure-black-theme-test/compare/1.1.1...1.1.2) (2026-11-06)
 
 
