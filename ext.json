@@ -5,10 +5,9 @@
 	"area": "themes",
 	"version": "1.1.9",
 	"description": "Pure black theme for Standard Notes.",
-	"url": "https://raw.githack.com/edbartholomew/sn-pure-black-theme-test/latest/dist/theme.css",
-	"download_url": "https://github.com/edbartholomew/sn-pure-black-theme-test/archive/refs/tags/latest.zip",
-	"latest_url": "https://raw.githack.com/edbartholomew/sn-pure-black-theme-test/main/ext.json",
-	"marketing_url": "https://github.com/edbartholomew/sn-pure-black-theme-test",
+	"url": "https://sn-pure-black-theme.edbartholomew.workers.dev/theme.css",
+	"download_url": "https://github.com/edbartholomew/sn-pure-black-theme-test/archive/refs/tags/1.1.7.zip",
+	"latest_url": "https://sn-pure-black-theme.edbartholomew.workers.dev/ext.json",
 	"dock_icon": {
 		"type": "circle",
 		"background_color": "#0680fc"

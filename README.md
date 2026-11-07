@@ -2,8 +2,8 @@
 
 https://github.com/christianhans/sn-pure-black-theme
 https://standardnotes.com/help/plugins/publishing
-https://cdn.jsdelivr.net/gh/edbartholomew/sn-pure-black-theme-test@main/ext.json
-https://raw.githack.com/edbartholomew/sn-pure-black-theme-test/main/ext.json
+Install URL (paste into Standard Notes → Preferences → Plugins):
+https://pure-black-theme.YOUR-SUBDOMAIN.workers.dev/ext.json
 
 Three files matter: `ext.json` (manifest), `src/theme.css` (your changes) and `dist/theme.css` (generated).
 
@@ -35,15 +35,22 @@ from `.github/workflows/release.yml`.
    The workflow then writes the repo owner/name and the version into `ext.json`, rebuilds `dist/theme.css`,
    and pushes both onto the PR.
 3. Merge the PR. release-please tags the merge commit (plain `1.2.3`) and creates the GitHub release.
-   The workflow then moves the `latest` tag onto it.
+   The workflow then copies `ext.json` and `dist/theme.css` into `public/` and runs `wrangler deploy`.
 
-`ext.json` never needs a version in its URLs: `url` and `download_url` point at the `latest` tag and
-`latest_url` at `main`, all served by raw.githack.com, which re-checks GitHub every 60 seconds.
+Hosting: `url` and `latest_url` point at a Cloudflare Worker that only serves those two files
+(`wrangler.toml`). It is updated only by the release job, so what's live is always the last release.
+Cloudflare clears its cache on deploy and the app revalidates on every load, so a release is live at once.
+`download_url` stays on GitHub as a zip of the version tag.
 
 One-time setup:
 
 - Push this folder to a public GitHub repo. The workflow fills in the owner/repo in `ext.json`'s
-  identifier and URLs on the first release PR, so the `username` placeholder can stay.
+  identifier and `download_url` on the first release PR, so the `username` placeholder can stay.
+- Cloudflare: in the dashboard, note your account ID and your workers.dev subdomain
+  (Workers & Pages → Overview). Create an API token from the "Edit Cloudflare Workers" template.
+  Add both to the repo as Actions secrets: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+  Replace `YOUR-SUBDOMAIN` in `ext.json` and this file with your subdomain. The Worker itself is created
+  by the first `wrangler deploy`; nothing needs making in the dashboard.
 - Allow the workflow to open pull requests, or release-please fails with
   `GitHub Actions is not permitted to create or approve pull requests`:
    1. Repo → Settings → Actions → General.
