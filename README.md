@@ -35,7 +35,10 @@ from `.github/workflows/release.yml`.
    The workflow then writes the repo owner/name and the version into `ext.json`, rebuilds `dist/theme.css`,
    and pushes both onto the PR.
 3. Merge the PR. release-please tags the merge commit (plain `1.2.3`) and creates the GitHub release.
-   `latest_url` points at raw.githack.com, which serves `main` uncached, so the app sees the new version straight away.
+   The workflow then moves the `latest` tag onto it.
+
+`ext.json` never needs a version in its URLs: `url` and `download_url` point at the `latest` tag and
+`latest_url` at `main`, all served by raw.githack.com, which re-checks GitHub every 60 seconds.
 
 One-time setup:
 
