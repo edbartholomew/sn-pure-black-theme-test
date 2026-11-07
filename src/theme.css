@@ -27,26 +27,40 @@
 }
 
 /* Sidebar (views/tags list) */
-#navigation .tag {
-	/* Row background of the selected item (accent at 15%). */
-	&.selected {
-		--navigation-item-selected-background-color: color-mix(in srgb, var(--highlight-color) 15%, transparent);
+#navigation {
+	.tag {
+		/* Row background of the selected item (accent at 15%). */
+		&.selected {
+			--navigation-item-selected-background-color: color-mix(in srgb, var(--highlight-color) 15%, transparent);
+		}
+
+		/* Default item text is grey. */
+		> .tag-info > .title {
+			--navigation-item-text-color: var(--sn-stylekit-neutral-color);
+		}
+
+		/* Item text goes white when selected. */
+		&.selected > .tag-info > .title {
+			--navigation-item-text-color: white;
+		}
+
+		/* Hover only with a real pointer; on iOS a touch scroll would otherwise count as hover. */
+		@media (hover: hover) {
+			/* Row background when hovering an unselected item. */
+			&:hover:not(.selected) {
+				--navigation-item-selected-background-color: hsl(240, 1.5%, 12.5%);
+			}
+
+			/* Item text goes white when hovered. */
+			&:hover > .tag-info > .title {
+				--navigation-item-text-color: white;
+			}
+		}
 	}
 
-	/* Row background when hovering an unselected item. */
-	&:hover:not(.selected) {
-		--navigation-item-selected-background-color: hsl(240, 1.5%, 12.5%);
-	}
-
-	/* Default item text is grey. */
-	> .tag-info > .title {
-		--navigation-item-text-color: var(--sn-stylekit-neutral-color);
-	}
-
-	/* Item text goes white when selected or hovered. */
-	&.selected > .tag-info > .title,
-	&:hover > .tag-info > .title {
-		--navigation-item-text-color: white;
+	/* Mobile footer bar under the list */
+	> .fixed.bottom-0 {
+		--sn-stylekit-contrast-background-color: var(--background-color);
 	}
 }
 
