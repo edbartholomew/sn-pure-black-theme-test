@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.5](https://github.com/edbartholomew/sn-pure-black-theme-test/compare/1.1.4...1.1.5) (2026-11-07)
+
+
+### Bug Fixes
+
+* change latest url ([7d89455](https://github.com/edbartholomew/sn-pure-black-theme-test/commit/7d89455783654d9951ca7701e6a6c5e203d8b64f))
+
 ## [1.1.4](https://github.com/edbartholomew/sn-pure-black-theme-test/compare/1.1.3...1.1.4) (2026-11-07)
 
 
