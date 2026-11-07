@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.7](https://github.com/edbartholomew/sn-pure-black-theme-test/compare/1.1.6...1.1.7) (2026-11-07)
+
+
+### Bug Fixes
+
+* point theme URLs at a moving latest tag ([e363af8](https://github.com/edbartholomew/sn-pure-black-theme-test/commit/e363af8c253491fd9636593d90df91accfb44f60))
+
 ## [1.1.6](https://github.com/edbartholomew/sn-pure-black-theme-test/compare/1.1.5...1.1.6) (2026-11-07)
 
 
