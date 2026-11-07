@@ -11,14 +11,14 @@
 	/* Sidebar */
 	--sn-stylekit-passive-color-4: var(--surface-color);
 
-	/* Selected note background and footer bar */
-	--sn-stylekit-contrast-background-color: var(--surface-color);
+	/* Selected note background */
+	--item-cell-selected-background-color: var(--surface-color);
+
+	/* Search field above the note list */
+	--items-column-search-background-color: var(--surface-color);
 
 	/* Scrollbar */
 	--sn-stylekit-scrollbar-thumb-color: hsl(215, 4%, 25%);
-
-	/* Preferences canvas behind the cards */
-	--preferences-background-color: var(--background-color);
 }
 
 /* Note list: the preview text under each note title. */
@@ -56,21 +56,32 @@
 				--navigation-item-text-color: white;
 			}
 		}
+
+		/* The app whitens the icon on hover without a pointer check, so a touch on iOS triggers it. Pin the resting colours. */
+		@media (hover: none) {
+			&:hover .tag-icon .text-neutral {
+				color: var(--sn-stylekit-neutral-color);
+			}
+
+			&:hover .tag-icon .text-info {
+				color: var(--sn-stylekit-info-color);
+			}
+		}
 	}
 
-	/* Mobile footer bar under the list */
-	> .fixed.bottom-0 {
-		--sn-stylekit-contrast-background-color: var(--background-color);
+	/* Round buttons in the mobile footer bar: default background is black here, so lift them */
+	> .fixed.bottom-0 .bg-default {
+		--sn-stylekit-background-color: var(--surface-color);
 	}
 }
 
 /* Mobile sheets */
 [data-mobile-popover] {
-	--sn-stylekit-passive-color-5: hsl(240, 2.5%, 10%);
+	--sn-stylekit-passive-color-5: hsl(240, 2.5%, 9%);
 
 	/* Handle strip and title bar */
 	> .bg-default {
-		--sn-stylekit-background-color: hsl(240, 2.5%, 10%);
+		--sn-stylekit-background-color: hsl(240, 2.5%, 9%);
 	}
 
 	/* Divider under the title bar */
@@ -80,11 +91,16 @@
 
 	/* Option cards inside the scroll body */
 	> :nth-child(3) .bg-default {
-		--sn-stylekit-background-color: hsl(240, 2.5%, 12.5%);
+		--sn-stylekit-background-color: hsl(240, 3%, 12.5%);
 	}
 }
 
-/* Everything that uses bg-default inside the preferences canvas: the cards */
+/* Desktop footer bar */
+#footer-bar {
+	--sn-stylekit-contrast-background-color: var(--surface-color);
+}
+
+/* Preferences cards: they use the default background, which is black here */
 .bg-\[--preferences-background-color\] .bg-default {
 	--sn-stylekit-background-color: var(--surface-color);
 }
