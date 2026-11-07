@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.17](https://github.com/edbartholomew/sn-pure-black-theme-test/compare/1.1.16...1.1.17) (2026-11-07)
+
+
+### Bug Fixes
+
+* test ([b4eb55f](https://github.com/edbartholomew/sn-pure-black-theme-test/commit/b4eb55fcfc9c84bea65f42a518a54f8dcbf14677))
+
 ## [1.1.16](https://github.com/edbartholomew/sn-pure-black-theme-test/compare/1.1.15...1.1.16) (2026-11-07)
 
 
