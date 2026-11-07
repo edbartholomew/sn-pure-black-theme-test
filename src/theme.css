@@ -1,6 +1,6 @@
 :root {
 	/* Main background: editor and note list */
-	--background-color: #000000; /* must be hex or rgb(): the app parses this for the translucent overlay and iOS status bar */
+	--background-color: #cf6418; /* must be hex or rgb(): the app parses this for the translucent overlay and iOS status bar */
 
 	/* Shared surface color for raised panels */
 	--surface-color: hsl(240, 2.5%, 7.5%);
