@@ -5,7 +5,14 @@
 	"packages": {
 		".": {
 			"release-type": "node",
-			"component": "sn-pure-black-theme"
+			"component": "sn-pure-black-theme",
+			"extra-files": [
+				{
+					"type": "json",
+					"path": "ext.json",
+					"jsonpath": "$.version"
+				}
+			]
 		}
 	}
 }

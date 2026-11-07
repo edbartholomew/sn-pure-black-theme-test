@@ -6,7 +6,8 @@ on:
 
 jobs:
   # Opens/updates the release PR from conventional commits (fix: / feat: / feat!:).
-  # When that PR is merged, creates the tag (plain "1.2.3") and the GitHub release.
+  # Its single commit bumps package.json, CHANGELOG.md and ext.json's version (extra-files in
+  # release-please-config.json). When the PR is merged, creates the tag (plain "1.2.3") and the release.
   release-please:
     runs-on: ubuntu-latest
     permissions:
@@ -15,54 +16,13 @@ jobs:
     outputs:
       release_created: ${{ steps.rp.outputs.release_created }}
       tag_name: ${{ steps.rp.outputs.tag_name }}
-      pr: ${{ steps.rp.outputs.pr }}
     steps:
       - id: rp
         uses: googleapis/release-please-action@v4
 
-  # While the release PR is open: copy the new version into ext.json,
-  # rebuild dist/theme.css, and push both onto the PR branch so the tag contains them.
-  # Wait for this commit to show up in the PR before merging.
-  prepare-pr:
-    needs: release-please
-    if: needs.release-please.outputs.pr
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ fromJSON(needs.release-please.outputs.pr).headBranchName }}
-
-      - name: Sync ext.json and build
-        env:
-          REPO: ${{ github.repository }}          # owner/name
-          OWNER: ${{ github.repository_owner }}
-        run: |
-          # Owner/repo into download_url and the identifier (safe to re-run; survives a repo rename)
-          name="${REPO#*/}"
-          sed -i -E \
-            -e "s#(github\.com/)[^/\"]+/[^/\"]+#\1$REPO#g" \
-            -e "s#\"identifier\": \"io\.github\.[^\"]+\"#\"identifier\": \"io.github.$OWNER.$name\"#" \
-            ext.json
-          # package.json name follows the repo name too
-          node -e 'const fs=require("fs");const p=JSON.parse(fs.readFileSync("package.json","utf8"));p.name=process.argv[1];fs.writeFileSync("package.json",JSON.stringify(p,null,"\t")+"\n")' "$name"
-          # Version from package.json (already bumped by release-please) into ext.json
-          new=$(node -p "require('./package.json').version")
-          sed -i -E "s/\"version\": \"[^\"]+\"/\"version\": \"$new\"/" ext.json
-          ./build.sh
-
-      - name: Commit to the release PR
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add ext.json package.json dist
-          git diff --cached --quiet && echo "Nothing to commit" && exit 0
-          git commit -m "chore: sync ext.json and build dist"
-          git push
-
-  # After the PR is merged: publish ext.json and theme.css to the Cloudflare Worker,
-  # and move the "latest" tag (download_url points at it) onto the new version tag.
+  # After the PR is merged: build the theme, attach the plugin zip to the GitHub release
+  # (download_url), then publish ext.json and theme.css to the Cloudflare Worker (url, latest_url).
+  # Order matters: the zip must exist before the Worker advertises the new version.
   release:
     needs: release-please
     if: needs.release-please.outputs.release_created == 'true'
@@ -73,10 +33,17 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: ${{ needs.release-please.outputs.tag_name }}
-      - name: Move the latest tag
+
+      - name: Build
+        run: ./build.sh
+
+      - name: Attach theme.zip to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          git tag -f latest
-          git push -f origin latest
+          zip -q theme.zip package.json dist/theme.css
+          gh release upload "${{ needs.release-please.outputs.tag_name }}" theme.zip --clobber
+
       - name: Deploy to Cloudflare
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

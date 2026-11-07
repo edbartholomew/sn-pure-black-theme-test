@@ -5,10 +5,10 @@ https://standardnotes.com/help/plugins/publishing
 Install URL (paste into Standard Notes → Preferences → Plugins):
 https://sn-pure-black-theme.edbartholomew.workers.dev/ext.json
 
-Three files matter: `ext.json` (manifest), `src/theme.css` (your changes) and `dist/theme.css` (generated).
+Two files matter: `ext.json` (manifest) and `src/theme.css` (your changes).
 
 `dist/theme.css` = upstream Standard Notes Focus theme + `src/theme.css`, built by `./build.sh`.
-Edit `src/theme.css`, never `dist/theme.css` directly, then re-run the script.
+It's generated, not committed: run the script to test locally; the release job builds it for publishing.
 
 ## Test locally
 
@@ -31,21 +31,21 @@ from `.github/workflows/release.yml`.
 
 1. Commit to `main` with a conventional prefix: `fix:` (patch), `feat:` (minor), `feat!:` (major).
    Other prefixes such as `chore:` don't trigger a release.
-2. release-please opens or updates a "Release" PR that bumps `package.json` and `CHANGELOG.md`.
-   The workflow then writes the repo owner/name and the version into `ext.json`, rebuilds `dist/theme.css`,
-   and pushes both onto the PR.
+2. release-please opens or updates a "Release" PR. Its single commit bumps the version in `package.json`,
+   `ext.json` and `CHANGELOG.md`. Nothing else touches the PR, so merge it whenever you like.
 3. Merge the PR. release-please tags the merge commit (plain `1.2.3`) and creates the GitHub release.
-   The workflow then copies `ext.json` and `dist/theme.css` into `public/` and runs `wrangler deploy`.
+   The workflow then builds `dist/theme.css`, attaches `theme.zip` (package.json + dist) to the release,
+   and deploys `ext.json` and `theme.css` to the Cloudflare Worker.
 
-Hosting: `url` and `latest_url` point at a Cloudflare Worker that only serves those two files
+Hosting: `url` and `latest_url` point at a Cloudflare Worker that serves only those two files
 (`wrangler.toml`). It is updated only by the release job, so what's live is always the last release.
 Cloudflare clears its cache on deploy and the app revalidates on every load, so a release is live at once.
-`download_url` stays on GitHub as a zip of the `latest` tag, which the release job moves onto each new version.
+`download_url` is GitHub's "latest release" link to `theme.zip`, which always resolves to the newest release.
 
 One-time setup:
 
-- Push this folder to a public GitHub repo. The workflow fills in the owner/repo in `ext.json`'s
-  identifier and `download_url` on the first release PR, so the `username` placeholder can stay.
+- Push this folder to a public GitHub repo, then put the owner/repo into `ext.json`'s `identifier` and
+  `download_url`, and the repo name into `package.json`'s `name`.
 - Cloudflare: in the dashboard, note your account ID and your workers.dev subdomain
   (Workers & Pages → Overview). Create an API token from the "Edit Cloudflare Workers" template.
   Add both to the repo as Actions secrets: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
@@ -58,8 +58,8 @@ One-time setup:
    3. If the box is greyed out, enable the same setting at the organisation level first.
    4. Re-run the failed workflow from the Actions tab; no new commit is needed.
 - `.release-please-manifest.json` holds the current version; keep it in step with `package.json`.
-- `release-please-config.json` pins `component` to a fixed name. release-please matches a merged release PR
-  by that name, and the workflow rewrites the package name inside the PR, so it must not come from `package.json`.
+- `release-please-config.json` pins `component` to a fixed name so the tag and PR naming never depend on
+  `package.json`'s `name`, and lists `ext.json` under `extra-files` so its version is bumped with the rest.
 
 ## Notes
 
