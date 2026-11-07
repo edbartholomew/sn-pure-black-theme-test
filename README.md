@@ -3,7 +3,7 @@
 https://github.com/christianhans/sn-pure-black-theme
 https://standardnotes.com/help/plugins/publishing
 Install URL (paste into Standard Notes → Preferences → Plugins):
-https://pure-black-theme.YOUR-SUBDOMAIN.workers.dev/ext.json
+https://sn-pure-black-theme.edbartholomew.workers.dev/ext.json
 
 Three files matter: `ext.json` (manifest), `src/theme.css` (your changes) and `dist/theme.css` (generated).
 
@@ -40,7 +40,7 @@ from `.github/workflows/release.yml`.
 Hosting: `url` and `latest_url` point at a Cloudflare Worker that only serves those two files
 (`wrangler.toml`). It is updated only by the release job, so what's live is always the last release.
 Cloudflare clears its cache on deploy and the app revalidates on every load, so a release is live at once.
-`download_url` stays on GitHub as a zip of the version tag.
+`download_url` stays on GitHub as a zip of the `latest` tag, which the release job moves onto each new version.
 
 One-time setup:
 

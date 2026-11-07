@@ -14,6 +14,7 @@ jobs:
       pull-requests: write
     outputs:
       release_created: ${{ steps.rp.outputs.release_created }}
+      tag_name: ${{ steps.rp.outputs.tag_name }}
       pr: ${{ steps.rp.outputs.pr }}
     steps:
       - id: rp
@@ -46,12 +47,9 @@ jobs:
             ext.json
           # package.json name follows the repo name too
           node -e 'const fs=require("fs");const p=JSON.parse(fs.readFileSync("package.json","utf8"));p.name=process.argv[1];fs.writeFileSync("package.json",JSON.stringify(p,null,"\t")+"\n")' "$name"
-          # Version from package.json (already bumped by release-please) into ext.json: the version field and the zip tag
+          # Version from package.json (already bumped by release-please) into ext.json
           new=$(node -p "require('./package.json').version")
-          sed -i -E \
-            -e "s/\"version\": \"[^\"]+\"/\"version\": \"$new\"/" \
-            -e "s#(archive/refs/tags/)[^\"]+\.zip#\1$new.zip#" \
-            ext.json
+          sed -i -E "s/\"version\": \"[^\"]+\"/\"version\": \"$new\"/" ext.json
           ./build.sh
 
       - name: Commit to the release PR
@@ -63,14 +61,22 @@ jobs:
           git commit -m "chore: sync ext.json and build dist"
           git push
 
-  # After the PR is merged: publish ext.json and theme.css to the Cloudflare Worker.
-  # The app's url and latest_url point at the Worker, so this is what makes a release live.
+  # After the PR is merged: publish ext.json and theme.css to the Cloudflare Worker,
+  # and move the "latest" tag (download_url points at it) onto the new version tag.
   release:
     needs: release-please
     if: needs.release-please.outputs.release_created == 'true'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.release-please.outputs.tag_name }}
+      - name: Move the latest tag
+        run: |
+          git tag -f latest
+          git push -f origin latest
       - name: Deploy to Cloudflare
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
