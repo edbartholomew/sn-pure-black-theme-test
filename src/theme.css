@@ -66,7 +66,7 @@
 
 /* Mobile sheets: handle strip + title bar (direct children of the sheet) */
 [data-mobile-popover] > .bg-default {
-	--sn-stylekit-background-color: hsl(240, 2.5%, 12%); /* header colour */
+	--sn-stylekit-background-color: var(--sn-stylekit-passive-color-4); /* header colour */
 }
 
 /* Divider under the title bar */
