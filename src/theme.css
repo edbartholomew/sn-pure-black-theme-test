@@ -55,3 +55,11 @@
 	--popover-background-color: rgba(0, 0, 0, 0.65) !important;
 	--popover-backdrop-filter: blur(12px) saturate(190%) contrast(70%) brightness(80%) !important;
 }
+
+/* Mobile menu sheets: grey cards on a black sheet */
+.z-modal .bg-passive-5 {
+	--sn-stylekit-passive-color-5: #000;
+}
+.z-modal .bg-passive-5 .bg-default {
+	--sn-stylekit-background-color: hsl(240, 2.5%, 7.5%);
+}
