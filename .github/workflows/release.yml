@@ -42,6 +42,7 @@ jobs:
           sed -i -E \
             -e "s#(cdn\.jsdelivr\.net/gh/)[^/@\"]+/[^/@\"]+#\1$REPO#g" \
             -e "s#(github\.com/)[^/\"]+/[^/\"]+#\1$REPO#g" \
+            -e "s#(raw\.githack\.com/)[^/\"]+/[^/\"]+#\1$REPO#g" \
             -e "s#\"identifier\": \"io\.github\.[^\"]+\"#\"identifier\": \"io.github.$OWNER.$name\"#" \
             ext.json
           # package.json name follows the repo name too
@@ -61,11 +62,3 @@ jobs:
           git commit -m "chore: sync ext.json and build dist"
           git push
 
-  # After the PR is merged and the tag exists: make the new ext.json visible to the app.
-  release:
-    needs: release-please
-    if: needs.release-please.outputs.release_created == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Purge jsDelivr cache for ext.json on main
-        run: curl -fsS "https://purge.jsdelivr.net/gh/${{ github.repository }}@main/ext.json"

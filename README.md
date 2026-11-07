@@ -2,9 +2,7 @@
 
 https://github.com/christianhans/sn-pure-black-theme
 https://standardnotes.com/help/plugins/publishing
-
 https://cdn.jsdelivr.net/gh/edbartholomew/sn-pure-black-theme-test@main/ext.json
-
 https://raw.githack.com/edbartholomew/sn-pure-black-theme-test/main/ext.json
 
 Three files matter: `ext.json` (manifest), `src/theme.css` (your changes) and `dist/theme.css` (generated).
@@ -37,7 +35,7 @@ from `.github/workflows/release.yml`.
    The workflow then writes the repo owner/name and the version into `ext.json`, rebuilds `dist/theme.css`,
    and pushes both onto the PR.
 3. Merge the PR. release-please tags the merge commit (plain `1.2.3`) and creates the GitHub release.
-   The workflow purges jsDelivr's cache for `ext.json` so the app sees the new version.
+   `latest_url` points at raw.githack.com, which serves `main` uncached, so the app sees the new version straight away.
 
 One-time setup:
 

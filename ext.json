@@ -7,7 +7,7 @@
 	"description": "Pure black theme for Standard Notes.",
 	"url": "https://cdn.jsdelivr.net/gh/edbartholomew/sn-pure-black-theme-test@1.1.4/dist/theme.css",
 	"download_url": "https://github.com/edbartholomew/sn-pure-black-theme-test/archive/1.1.4.zip",
-	"latest_url": "https://cdn.jsdelivr.net/gh/edbartholomew/sn-pure-black-theme-test@main/ext.json",
+	"latest_url": "https://raw.githack.com/edbartholomew/sn-pure-black-theme-test/main/ext.json",
 	"marketing_url": "https://github.com/edbartholomew/sn-pure-black-theme-test",
 	"dock_icon": {
 		"type": "circle",
