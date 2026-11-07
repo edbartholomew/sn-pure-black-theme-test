@@ -5,6 +5,8 @@ https://standardnotes.com/help/plugins/publishing
 
 https://cdn.jsdelivr.net/gh/edbartholomew/sn-pure-black-theme-test@main/ext.json
 
+https://raw.githack.com/edbartholomew/sn-pure-black-theme-test/main/ext.json
+
 Three files matter: `ext.json` (manifest), `src/theme.css` (your changes) and `dist/theme.css` (generated).
 
 `dist/theme.css` = upstream Standard Notes Focus theme + `src/theme.css`, built by `./build.sh`.
